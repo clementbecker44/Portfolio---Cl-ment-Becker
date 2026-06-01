@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ⚙️ À PERSONNALISER si besoin : nom dans le titre de l'onglet -->
+  <title>Clément Becker — Portfolio</title>
+  <meta name="description" content="Portfolio des œuvres de Clément Becker, peintre." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { canvas: '#FAFAF8', ink: '#1A1A1A', muted: '#8A8A85', accent: '#9C6B4A' },
+          fontFamily: { serif: ['"Cormorant Garamond"', 'serif'], sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    .artwork-img { transition: transform .6s ease; }
+    .artwork-card:hover .artwork-img { transform: scale(1.04); }
+    #lightbox { transition: opacity .4s ease; }
+    .lb-hidden { opacity: 0; pointer-events: none; }
+    .lang-en { display: none; }
+    body.en .lang-fr { display: none; }
+    body.en .lang-en { display: inline; }
+  </style>
+</head>
+
+<body class="bg-canvas text-ink font-sans antialiased">
+
+  <!-- EN-TÊTE / NAVIGATION + BASCULE DE LANGUE -->
+  <header class="fixed top-0 inset-x-0 z-40 bg-canvas/80 backdrop-blur-sm">
+    <nav class="max-w-6xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+      <!-- ⚙️ À PERSONNALISER : nom de l'artiste -->
+      <a href="#top" class="font-serif text-3xl tracking-wide">Clément Becker</a>
+      <div class="flex items-center gap-6 md:gap-8 text-sm tracking-wide text-muted">
+        <a href="https://www.linkedin.com/in/cl%C3%A9ment-becker/" target="_blank" rel="noopener" class="hover:text-accent transition-colors">LinkedIn</a>
+        </a>
+        <a href="#about" class="hover:text-accent transition-colors">
+          <span class="lang-fr">À propos</span><span class="lang-en">About</span>
+        </a>
+        <a href="#contact" class="hover:text-accent transition-colors">Contact</a>
+        <button onclick="toggleLang()" class="border border-ink/30 px-3 py-1 hover:border-accent hover:text-accent transition-colors">
+          <span class="lang-fr">EN</span><span class="lang-en">FR</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top" class="pt-32">
+
+    <!-- SECTION 1 — ACCUEIL / PORTFOLIO -->
+    <section class="max-w-6xl mx-auto px-6 md:px-10 mb-20 md:mb-28">
+      <!-- ⚙️ À PERSONNALISER : titre d'accroche -->
+      <h1 class="font-serif text-5xl md:text-7xl leading-tight max-w-3xl">
+        <span class="lang-fr">Portfolio de mes peintures</span>  
+        <span class="lang-en">Portfolio of my paintings</span>
+      </h1>
+    </section>
+
+    <!-- Galerie -->
+    <section id="portfolio" class="max-w-6xl mx-auto px-6 md:px-10 pb-28">
+      <!-- Filtre par année (les boutons sont générés automatiquement) -->
+      <div id="year-filter" class="flex flex-wrap gap-3 mb-10 text-sm tracking-wide"></div>
+      <div id="gallery" class="columns-1 sm:columns-2 lg:columns-3 gap-6 md:gap-8 [&>*]:mb-6 md:[&>*]:mb-8"></div>
+    </section>
+
+    <!-- SECTION 2 — À PROPOS -->
+    <section id="about" class="bg-white border-t border-black/5">
+      <div class="max-w-6xl mx-auto px-6 md:px-10 py-24 md:py-32 grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div>
+          <img src="images/portrait.jpeg"
+               alt="Portrait de Clément Becker" class="w-full max-w-sm object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+        </div>
+        <div>
+          <h2 class="font-serif text-4xl md:text-5xl mb-6">
+            <span class="lang-fr">À propos</span><span class="lang-en">About</span>
+          </h2>
+          <!-- Zone de texte de présentation -->
+          <div class="space-y-4 text-muted font-light leading-relaxed">
+            <!-- VERSION FRANÇAISE -->
+            <div class="lang-fr">
+              <p>
+                Étudiant à l'Université Paris Dauphine-PSL en Master Finance, je m'intéresse au conseil en finance d'entreprise, ainsi qu'à l'investissement personnel sur les marchés financiers. Parallèlement à mon parcours académique et professionnel, j'ai découvert en 2023 la pratique de la peinture sur toile, dont je suis très vite tombé sous le charme. Petit à petit, j'ai affiné mon style qui se rapproche désormais du mouvement impressionniste. Toutefois, j'apprécie la liberté de peindre comme je l'entends, sans m'attacher à un style figé ni à de quelconques lois artistiques.
+              </p>
+              <div class="h-6"></div>
+              <p>
+                Afin de faciliter l'accès à mon travail, j'ai décidé de créer ce site internet sur lequel je partagerai l'ensemble de mes oeuvres complétées, ainsi que mes prochaines créations. Je vous remercie chaleureusement de votre intérêt pour mon travail !
+              </p>
+            </div>
+            
+            <!-- VERSION ANGLAISE -->
+            <div class="lang-en">
+                <p class="mb-6">
+                    As a Finance Master's student at Université Paris Dauphine-PSL, I am interested in corporate finance advisory as well as personal investment in financial markets. Alongside my academic and professional path, I discovered canvas painting in 2023 and quickly fell in love with it. Step by step, I refined my style, which is now close to the impressionist movement. However, I value the freedom to paint as I please, without being bound to any fixed style or artistic rules.
+                </p>
+  
+                <p>
+                    To make my work more accessible, I decided to create this website where I will share all of my completed artworks, as well as my upcoming creations. Thank you very much for your interest in my work!
+                </p>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 — CONTACT -->
+    <section id="contact" class="bg-canvas border-t border-black/5">
+      <div class="max-w-2xl mx-auto px-6 md:px-10 py-24 md:py-32 text-center">
+        <h2 class="font-serif text-4xl md:text-5xl mb-3">Contact</h2>
+        <p class="text-muted font-light mb-12">
+          <span class="lang-fr">Une question, une demande ? Écrivez-moi.</span>
+          <span class="lang-en">A question or request? Drop me a line.</span>
+        </p>
+        <a href="mailto:clement.becker44@gmail.com"
+           class="inline-block px-10 py-3 border border-ink hover:bg-ink hover:text-canvas transition-colors tracking-wide">
+          clement.becker44@gmail.com
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-white border-t border-black/5">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 py-8 text-xs text-muted flex justify-between">
+      <span>© <span id="year"></span> Clément Becker</span>
+      <a href="#top" class="hover:text-accent transition-colors">
+        <span class="lang-fr">Haut de page ↑</span><span class="lang-en">Back to top ↑</span>
+      </a>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lb-hidden fixed inset-0 z-50 bg-ink/95 flex items-center justify-center p-6" onclick="closeLightbox(event)">
+    <button onclick="closeLightbox(event, true)" class="absolute top-6 right-8 text-canvas/70 hover:text-canvas text-3xl">×</button>
+    <div class="max-w-5xl w-full flex flex-col md:flex-row gap-8 items-center" onclick="event.stopPropagation()">
+      <img id="lb-img" src="" alt="" class="max-h-[80vh] w-auto object-contain" />
+      <div class="text-canvas md:max-w-xs">
+        <h3 id="lb-title" class="font-serif text-3xl mb-1"></h3>
+        <p id="lb-year" class="text-muted text-sm mb-4"></p>
+        <p id="lb-desc" class="font-light leading-relaxed text-canvas/80"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       ⭐ GESTION DES ŒUVRES — TOUT SE PASSE ICI ⭐
+       AJOUTER : copiez un bloc { ... } et changez les valeurs.
+       RETIRER : supprimez son bloc { ... }.
+       Les images sont déjà dans le dossier images/.
+       Les titres, années et descriptions ci-dessous sont des propositions :
+       modifiez-les librement (vraies dates, vrais titres, dimensions…).
+       ========================================================= -->
+  <script>
+    const artworks = [
+      {
+        src: "images/David.jpg",
+        title_fr: "David, Michel Ange", title_en: "David, Michel Ange",
+        year: "2026",
+        desc_fr: "Acrylique sur toile. 20x20 cm.",
+        desc_en: "Acrylic on canvas. 20x20 cm.",
+      },
+      {
+        src: "images/Locronan.png",
+        title_fr: "Locronan, Bretagne", title_en: "Locronan, Brittany",
+        year: "2026",
+        desc_fr: "Acrylique sur toile. 20x20 cm.",
+        desc_en: "Acrylic on canvas. 20x20 cm.",
+      },
+      {
+        src: "images/Chamonix.png",
+        title_fr: "Chamonix-Mont-Blanc", title_en: "Chamonix-Mont-Blanc",
+        year: "2026",
+        desc_fr: "Acrylique sur toile. 62x46 cm.",
+        desc_en: "Acrylic on canvas. 62x46 cm.",
+      },
+      {
+        src: "images/Ski.jpg",
+        title_fr: "Peisey-Vallandry, Les Alpes", title_en: "Peisey-Vallandry, Les Alpes",
+        year: "2026",
+        desc_fr: "Acrylique sur toile. 56x42 cm.",
+        desc_en: "Acrylic on canvas. 56x42 cm.",
+      },
+      {
+        src: "images/Homme.jpg",
+        title_fr: "Portrait d'un Rêveur", title_en: "Portrait of a Dreamer",
+        year: "2024",
+        desc_fr: "Acrylique sur toile. 35x23 cm.",
+        desc_en: "Acrylic on canvas. 35x23 cm.",
+      },
+      {
+        src: "images/Cygne.png",
+        title_fr: "Le Cygne", title_en: "The Swan",
+        year: "2024",
+        desc_fr: "Acrylique sur toile. 48x39 cm.",
+        desc_en: "Acrylic on canvas. 48x39 cm.",
+      },
+      {
+        src: "images/PetitDej.png",
+        title_fr: "Petit-déjeuner sur Paris", title_en: "Breakfast over Paris",
+        year: "2024",
+        desc_fr: "Acrylique sur toile. 48x39 cm.",
+        desc_en: "Acrylic on canvas. 35x23 cm.",
+      },
+      {
+        src: "images/échec.png",
+        title_fr: "L'échiquier du chat", title_en: "The Cat's Chessboard",
+        year: "2025",
+        desc_fr: "Acrylique sur toile. 20x20 cm.",
+        desc_en: "Acrylic on canvas. 20x20 cm.",
+      },
+      {
+        src: "images/Piano.png",
+        title_fr: "Sieste au piano", title_en: "Nap at the Piano",
+        year: "2025",
+        desc_fr: "Acrylique sur toile. 20x20 cm.",
+        desc_en: "Acrylic on canvas. 20x20 cm.",
+      },
+      {
+        src: "images/Chat Bibliothèque.png",
+        title_fr: "Le chat de la bibliothèque", title_en: "The Library Cat",
+        year: "2025",
+        desc_fr: "Acrylique sur toile. 20x20 cm.",
+        desc_en: "Acrylic on canvas. 20x20 cm.",
+      },
+      {
+        src: "images/Boris.png",
+        title_fr: "Portrait de mon chat", title_en: "Portrait of my cat",
+        year: "2025",
+        desc_fr: "Acrylique sur toile. 20x20 cm.",
+        desc_en: "Acrylic on canvas. 20x20 cm.",
+      },
+      {
+        src: "images/Montmartre.png",
+        title_fr: "Montmartre, le soir", title_en: "Montmartre at Night",
+        year: "2025",
+        desc_fr: "Acrylique sur toile. 50x40 cm.",
+        desc_en: "Acrylic on canvas. 50x40 cm.",
+      },
+      {
+        src: "images/Plage Bretagne.jpg",
+        title_fr: "Plage en Bretagne", title_en: "Beach in Brittany",
+        year: "2025",
+        desc_fr: "Acrylique sur toile. 30x20 cm.",
+        desc_en: "Acrylic on canvas. 30x20 cm.",
+      },
+
+      // ↑ Copiez/collez un bloc pour ajouter une œuvre.
+    ];
+
+    /* ---- Le code fonctionne tout seul à partir d'ici. ---- */
+    const isEN = () => document.body.classList.contains("en");
+    const gallery = document.getElementById("gallery");
+    const yearFilter = document.getElementById("year-filter");
+    let activeYear = "all"; // année sélectionnée ("all" = toutes)
+
+    // Liste des années présentes, de la plus récente à la plus ancienne
+    const years = [...new Set(artworks.map(a => a.year))].sort((a, b) => b - a);
+
+    // Construit les boutons de filtre (Toutes + une par année)
+    function buildFilter() {
+      yearFilter.innerHTML = "";
+      const makeBtn = (value, labelFr, labelEn) => {
+        const btn = document.createElement("button");
+        const isActive = activeYear === value;
+        btn.className = "px-4 py-1.5 border transition-colors " +
+          (isActive ? "bg-ink text-canvas border-ink" : "border-ink/30 text-muted hover:border-accent hover:text-accent");
+        btn.textContent = isEN() ? labelEn : labelFr;
+        btn.onclick = () => { activeYear = value; buildFilter(); render(); };
+        yearFilter.appendChild(btn);
+      };
+      makeBtn("all", "Toutes", "All");
+      years.forEach(y => makeBtn(y, y, y));
+    }
+
+    function render() {
+      gallery.innerHTML = "";
+      artworks
+        .map((art, i) => ({ art, i }))                       // garde l'index d'origine
+        .filter(({ art }) => activeYear === "all" || art.year === activeYear)
+        .forEach(({ art, i }) => {
+          const title = isEN() ? art.title_en : art.title_fr;
+          const card = document.createElement("div");
+          card.className = "artwork-card cursor-pointer overflow-hidden break-inside-avoid";
+          card.onclick = () => openLightbox(i);
+          card.innerHTML = `
+            <div class="overflow-hidden bg-black/5">
+              <img src="${art.src}" alt="${title}" loading="lazy" class="artwork-img w-full object-cover" />
+            </div>
+            <div class="pt-4">
+              <h3 class="font-serif text-xl leading-tight">${title}</h3>
+              <p class="text-muted text-sm">${art.year}</p>
+            </div>`;
+          gallery.appendChild(card);
+        });
+    }
+
+    const lb = document.getElementById("lightbox");
+    function openLightbox(i) {
+      const a = artworks[i];
+      document.getElementById("lb-img").src = a.src;
+      document.getElementById("lb-img").alt = isEN() ? a.title_en : a.title_fr;
+      document.getElementById("lb-title").textContent = isEN() ? a.title_en : a.title_fr;
+      document.getElementById("lb-year").textContent = a.year;
+      document.getElementById("lb-desc").textContent = isEN() ? a.desc_en : a.desc_fr;
+      lb.classList.remove("lb-hidden");
+      document.body.style.overflow = "hidden";
+    }
+    function closeLightbox(e, force) {
+      if (force || e.target.id === "lightbox") {
+        lb.classList.add("lb-hidden");
+        document.body.style.overflow = "";
+      }
+    }
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { lb.classList.add("lb-hidden"); document.body.style.overflow = ""; }
+    });
+
+    function toggleLang() {
+      document.body.classList.toggle("en");
+      document.documentElement.lang = isEN() ? "en" : "fr";
+      buildFilter();
+      render();
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    buildFilter();
+    render();
+  </script>
+</body>
+</html>
